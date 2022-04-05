@@ -1,0 +1,19 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* height: 100vh; */
+  width: 100%;
+  background: rgb(221, 219, 219);
+}
+.form_slider {
+  /* display: flex;
+  flex-direction: column; */
+  text-align: start;
+  width: 80%;
+}
+
+
+.chart_container{
+    width: 500px;
+}
