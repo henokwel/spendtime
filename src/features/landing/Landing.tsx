@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Center, Container, SimpleGrid, Slider, Text } from "@mantine/core";
+import {
+  Button,
+  Container,
+  SimpleGrid,
+  Tooltip as BtnTooltip,
+  Slider,
+  Text,
+  Progress,
+} from "@mantine/core";
 import styles from "./landing.module.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
@@ -7,84 +15,75 @@ import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip);
 
 export default function Landing() {
-  const [label0, setLabel0] = useState(0);
-  const [label0Value, setLabel0Value] = useState(0);
+  const [work, setWork] = useState(0);
+  const [workEndValue, setWorkEndValue] = useState(0);
 
-  const [label1, setLabel1] = useState(0);
-  const [label1Value, setLabel1Value] = useState(0);
+  const [sleep, setSleep] = useState(0);
+  const [sleepEndValue, setSleepEndValue] = useState(0);
 
-  const [label2, setLabel2] = useState(0);
-  const [label2Value, setLabel2Value] = useState(0);
+  const [commute, setCommute] = useState(0);
+  const [commuteEndValue, setCommuteEndValue] = useState(0);
 
-  const maxValue = 24;
+  const [hobby, setHobby] = useState(0);
+  const [hobbyEndValue, setHobbyEndValue] = useState(0);
+
+  const [family, setFamily] = useState(0);
+  const [familyEndValue, setFamilyEndValue] = useState(0);
+
+  const [health, setHealth] = useState(0);
+  const [healthEndValue, setHealthEndValue] = useState(0);
+
+  const [outOfTime, setOutOfTime] = useState(false);
+
+  const maxValue = 12;
+
   const [timeLeft, setTimeLeft] = useState(0);
   /////////////////////////////////////////////////////////////
 
+  const backgroundColorThumb = [
+    "rgba(255, 99, 132)",
+    "rgba(75, 192, 192)",
+    "rgba(54, 162, 235)",
+    "rgba(255, 206, 86)",
+    "rgba(153, 102, 255)",
+    "rgba(255, 159, 64)",
+  ];
   const data2 = {
-    labels: ["label0", "label1", "label2"],
-     
-    datasets: [
-      {
-        label: "# of Votes",
-        data: [label0, label1, label2],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-          "rgba(196, 196, 196, 1)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-          "rgba(196, 196, 196, 1)",
-        ],
-        borderWidth: 0,
-      },
-    ],
-  };
+    labels: ["work", "sleep", "commute", "hobby", "family", "health"],
 
-  const data = {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Grey"],
     datasets: [
       {
         label: "# of Votes",
-        data: [12, 19, 3, 5, 2, 3, 11],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-          "rgba(196, 196, 196, 1)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-          "rgba(196, 196, 196, 1)",
-        ],
+        data: [work, sleep, commute, hobby, family, health],
+        backgroundColor: backgroundColorThumb,
+        borderColor: backgroundColorThumb,
         borderWidth: 0,
       },
     ],
   };
 
   useEffect(() => {
-    // Check usedTime and disable after 24h use
+    // Check usedTime and disable after 24h
+    // Check change and enable if less than 24h
 
-    let usedTime = label0 + label1 + label2;
-    setTimeLeft(maxValue - usedTime);
-  }, [label0Value, label1Value, label2Value]);
+    let usedTime = work + sleep + commute + health + family + hobby;
+
+    if (usedTime === 24) {
+      setOutOfTime(true);
+      return;
+    }
+
+    setOutOfTime(false);
+
+    setTimeLeft(24 - usedTime);
+  }, [
+    workEndValue,
+    sleepEndValue,
+    commuteEndValue,
+    healthEndValue,
+    familyEndValue,
+    hobbyEndValue,
+  ]);
 
   return (
     <Container fluid>
@@ -97,55 +96,175 @@ export default function Landing() {
           { maxWidth: "md", cols: 1, spacing: "sm" },
         ]}
       >
-        <section className={styles.form}>
-          <div className={styles.form_slider}>
-            <Text size="xl" mb="md">
-              Label 0
-            </Text>
-            <Slider
-              color="dark"
-              size="lg"
-              radius="xs"
-              max={maxValue}
-              onChange={setLabel0}
-              value={label0}
-              onChangeEnd={setLabel0Value}
-              />
+        <section className={styles.landingContainer}>
+          <div className={styles.landingHeader}>
+            <h1>Participate & see others </h1>
+            <p>How do you use your time 24 hour ?</p>
           </div>
 
-          <div className={styles.form_slider}>
-            <Text size="xl" mb="md">
-              Label 1
-            </Text>
-            <Slider
-              color="dark"
-              size="lg"
-              radius="xs"
-              max={maxValue}
-              onChange={setLabel1}
-              value={label1}
-              onChangeEnd={setLabel1Value}
+          <div className={styles.formContainer}>
+            {/* Sleep */}
+            <div className={styles.form_slider}>
+              <Text size="xl" mb="md">
+                Sleep
+              </Text>
+              <Slider
+                styles={{ thumb: { backgroundColor: backgroundColorThumb[1] } }}
+                color="dark"
+                size="lg"
+                radius="xs"
+                max={maxValue}
+                onChange={setSleep}
+                value={sleep}
+                onChangeEnd={setSleepEndValue}
               />
+            </div>
+
+            {/* Work */}
+            <div className={styles.form_slider}>
+              <Text size="xl" mb="md">
+                Work
+              </Text>
+              <Slider
+                styles={{ thumb: { backgroundColor: backgroundColorThumb[0] } }}
+                color="dark"
+                size="lg"
+                radius="xs"
+                max={maxValue}
+                onChange={setWork}
+                value={work}
+                onChangeEnd={setWorkEndValue}
+              />
+            </div>
+
+            {/* Commute */}
+            <div className={styles.form_slider}>
+              <Text size="xl" mb="md">
+                Commute
+              </Text>
+              <Slider
+                styles={{ thumb: { backgroundColor: backgroundColorThumb[2] } }}
+                color="dark"
+                size="lg"
+                radius="xs"
+                max={maxValue}
+                onChange={setCommute}
+                value={commute}
+                onChangeEnd={setCommuteEndValue}
+              />
+            </div>
+
+            {/* Family */}
+            <div className={styles.form_slider}>
+              <Text size="xl" mb="md">
+                Family
+              </Text>
+              <Slider
+                styles={{ thumb: { backgroundColor: backgroundColorThumb[4] } }}
+                color="dark"
+                size="lg"
+                radius="xs"
+                max={maxValue}
+                onChange={setFamily}
+                value={family}
+                onChangeEnd={setFamilyEndValue}
+              />
+            </div>
+
+            {/* Health */}
+            <div className={styles.form_slider}>
+              <Text size="xl" mb="md">
+                Health
+              </Text>
+              <Slider
+                styles={{ thumb: { backgroundColor: backgroundColorThumb[5] } }}
+                color="dark"
+                size="lg"
+                radius="xs"
+                max={maxValue}
+                onChange={setHealth}
+                value={health}
+                onChangeEnd={setHealthEndValue}
+              />
+            </div>
+
+            {/* Hobby */}
+            <div className={styles.form_slider}>
+              <Text size="xl" mb="md">
+                Hobby
+              </Text>
+              <Slider
+                styles={{ thumb: { backgroundColor: backgroundColorThumb[3] } }}
+                color="dark"
+                size="lg"
+                radius="xs"
+                max={maxValue}
+                onChange={setHobby}
+                value={hobby}
+                onChangeEnd={setHobbyEndValue}
+              />
+
+              <h1>{timeLeft}</h1>
+              <Progress
+                mt="xl"
+                size="xl"
+                radius="xs"
+                sections={[
+                  {
+                    value: (sleepEndValue / 24) * 100,
+                    color: backgroundColorThumb[1],
+                    label: `Sleep`,
+                  },
+                  {
+                    value: (workEndValue / 24) * 100,
+                    color: backgroundColorThumb[0],
+                    label: "Work",
+                  },
+                  {
+                    value: (commuteEndValue / 24) * 100,
+                    color: backgroundColorThumb[2],
+                    label: "Commute",
+                  },
+                  {
+                    value: (familyEndValue / 24) * 100,
+                    color: backgroundColorThumb[4],
+                    label: "Family",
+                  },
+                  {
+                    value: (healthEndValue / 24) * 100,
+                    color: backgroundColorThumb[5],
+                    label: "Healthy",
+                  },
+                  {
+                    value: (hobbyEndValue / 24) * 100,
+                    color: backgroundColorThumb[3],
+                    label: " Hobby ",
+                  },
+                ]}
+              />
+            </div>
           </div>
 
-          <div className={styles.form_slider}>
-            <Text size="xl" mb="md">
-              Label 2
-            </Text>
-            <Slider
-              color="dark"
-              size="lg"
-              radius="xs"
-              max={maxValue}
-              onChange={setLabel2}
-              value={label2}
-              onChangeEnd={setLabel2Value}
-              />
+          <div className={styles.formBtnContainer}>
+            <Button color="red" mr="md" radius="xl" size="md">
+              Reset
+            </Button>
+            <BtnTooltip label="Use 24h to publish" radius="lg" withArrow>
+              <Button
+                color="dark"
+                radius="xl"
+                size="md"
+                disabled={!outOfTime ? true : false}
+              >
+                Publish
+              </Button>
+            </BtnTooltip>
+
           </div>
         </section>
+
         <section className={styles.chart_container}>
           <div className={styles.chart_circle}>
-              <h1>{timeLeft}</h1>
             <Doughnut data={data2} />
           </div>
         </section>
