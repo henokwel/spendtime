@@ -4,14 +4,18 @@
   align-items: center;
 
   width: 100%;
-  
+
   /* background: rgb(221, 219, 219); */
 }
 
+.landingHeader {
+  text-align: start;
+  margin-bottom: 30px;
+}
 .landingHeader h1 {
-  font-size: clamp(1rem, 10vw, 2rem);
-  line-height: 150%;
-  letter-spacing: 0.05em;
+  font-size: clamp(1.4rem, 10vw, 2.3rem);
+  line-height: 120%;
+  /* letter-spacing: 0.03em; */
 }
 
 .formContainer {
@@ -19,7 +23,7 @@
   flex-direction: column;
   /* align-items: center; */
 
-   width: 70%;
+  width: 70%;
 }
 
 .form_slider {
@@ -29,18 +33,44 @@
   max-width: 400px;
 }
 
-
-
-
 /* Btn Container */
-.formBtnContainer{
+.formBtnContainer {
   display: flex;
   justify-content: end;
-   margin-top: 50px;
+  margin-top: 50px;
   width: 59%;
-  
 }
 
+/* Chart Container */
 .chart_container {
-  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+   width: fit-content;
+  /* height: 80vh; */
+  justify-self: center;
 }
+
+.chart_circle {
+  max-width: 450px;
+  margin-top: 25px;
+  margin-bottom: 20px;
+}
+
+.dash_pic {
+  max-width: 500px;
+  height: 300px;
+  background: grey;
+}
+
+.dash_desc {
+  max-width: 56ch;
+}
+
+
+@media only screen and (max-width: 500px) {
+  .formContainer{
+     width: 100%;
+  }
+
+} 

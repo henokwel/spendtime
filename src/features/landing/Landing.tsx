@@ -7,6 +7,7 @@ import {
   Slider,
   Text,
   Progress,
+  Divider,
 } from "@mantine/core";
 import styles from "./landing.module.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -69,6 +70,7 @@ export default function Landing() {
     let usedTime = work + sleep + commute + health + family + hobby;
 
     if (usedTime === 24) {
+      setTimeLeft(24);
       setOutOfTime(true);
       return;
     }
@@ -85,6 +87,25 @@ export default function Landing() {
     hobbyEndValue,
   ]);
 
+  const resetHours = () => {
+    setWork(0);
+    setWorkEndValue(0);
+
+    setSleep(0);
+    setSleepEndValue(0);
+
+    setCommute(0);
+    setCommuteEndValue(0);
+
+    setHealth(0);
+    setHealthEndValue(0);
+
+    setFamily(0);
+    setFamilyEndValue(0);
+
+    setHobby(0);
+    setHobbyEndValue(0);
+  };
   return (
     <Container fluid>
       <SimpleGrid
@@ -98,14 +119,29 @@ export default function Landing() {
       >
         <section className={styles.landingContainer}>
           <div className={styles.landingHeader}>
-            <h1>Participate & see others </h1>
-            <p>How do you use your time 24 hour ?</p>
+            <Text
+              component="h1"
+              align="center"
+              variant="gradient"
+              gradient={{
+                from: backgroundColorThumb[0],
+                to: backgroundColorThumb[5],
+                deg: 45,
+              }}
+              weight={700}
+              mb="xs"
+            >
+              How do you use your time 24 hour ?
+            </Text>
+            {/* <Text component="h2" size="xl" weight={600}>
+              Participate & see others{" "}
+            </Text> */}
           </div>
 
           <div className={styles.formContainer}>
             {/* Sleep */}
             <div className={styles.form_slider}>
-              <Text size="xl" mb="md">
+              <Text size="xl" mb="xs">
                 Sleep
               </Text>
               <Slider
@@ -113,6 +149,7 @@ export default function Landing() {
                 color="dark"
                 size="lg"
                 radius="xs"
+                mb="sm"
                 max={maxValue}
                 onChange={setSleep}
                 value={sleep}
@@ -122,7 +159,7 @@ export default function Landing() {
 
             {/* Work */}
             <div className={styles.form_slider}>
-              <Text size="xl" mb="md">
+              <Text size="xl" mb="xs">
                 Work
               </Text>
               <Slider
@@ -130,6 +167,7 @@ export default function Landing() {
                 color="dark"
                 size="lg"
                 radius="xs"
+                mb="sm"
                 max={maxValue}
                 onChange={setWork}
                 value={work}
@@ -139,7 +177,7 @@ export default function Landing() {
 
             {/* Commute */}
             <div className={styles.form_slider}>
-              <Text size="xl" mb="md">
+              <Text size="xl" mb="xs">
                 Commute
               </Text>
               <Slider
@@ -147,6 +185,7 @@ export default function Landing() {
                 color="dark"
                 size="lg"
                 radius="xs"
+                mb="sm"
                 max={maxValue}
                 onChange={setCommute}
                 value={commute}
@@ -156,7 +195,7 @@ export default function Landing() {
 
             {/* Family */}
             <div className={styles.form_slider}>
-              <Text size="xl" mb="md">
+              <Text size="xl" mb="xs">
                 Family
               </Text>
               <Slider
@@ -164,6 +203,7 @@ export default function Landing() {
                 color="dark"
                 size="lg"
                 radius="xs"
+                mb="sm"
                 max={maxValue}
                 onChange={setFamily}
                 value={family}
@@ -173,7 +213,7 @@ export default function Landing() {
 
             {/* Health */}
             <div className={styles.form_slider}>
-              <Text size="xl" mb="md">
+              <Text size="xl" mb="xs">
                 Health
               </Text>
               <Slider
@@ -181,6 +221,7 @@ export default function Landing() {
                 color="dark"
                 size="lg"
                 radius="xs"
+                mb="sm"
                 max={maxValue}
                 onChange={setHealth}
                 value={health}
@@ -190,7 +231,7 @@ export default function Landing() {
 
             {/* Hobby */}
             <div className={styles.form_slider}>
-              <Text size="xl" mb="md">
+              <Text size="xl" mb="xs">
                 Hobby
               </Text>
               <Slider
@@ -198,45 +239,52 @@ export default function Landing() {
                 color="dark"
                 size="lg"
                 radius="xs"
+                mb="sm"
                 max={maxValue}
                 onChange={setHobby}
                 value={hobby}
                 onChangeEnd={setHobbyEndValue}
               />
 
-              <h1>{timeLeft}</h1>
+              <Divider my="sm"  variant="dashed" color="dark" mt="xl"/>
+
+              {timeLeft === 24 ? (
+                <h3>Yeah! Share your Day Routine with others.</h3>
+              ) : (
+                <h3> You have used {24 - timeLeft}h</h3>
+              )}
               <Progress
                 mt="xl"
                 size="xl"
                 radius="xs"
                 sections={[
                   {
-                    value: (sleepEndValue / 24) * 100,
+                    value: (sleep / 24) * 100,
                     color: backgroundColorThumb[1],
                     label: `Sleep`,
                   },
                   {
-                    value: (workEndValue / 24) * 100,
+                    value: (work / 24) * 100,
                     color: backgroundColorThumb[0],
                     label: "Work",
                   },
                   {
-                    value: (commuteEndValue / 24) * 100,
+                    value: (commute / 24) * 100,
                     color: backgroundColorThumb[2],
                     label: "Commute",
                   },
                   {
-                    value: (familyEndValue / 24) * 100,
+                    value: (family / 24) * 100,
                     color: backgroundColorThumb[4],
                     label: "Family",
                   },
                   {
-                    value: (healthEndValue / 24) * 100,
+                    value: (health / 24) * 100,
                     color: backgroundColorThumb[5],
                     label: "Healthy",
                   },
                   {
-                    value: (hobbyEndValue / 24) * 100,
+                    value: (hobby / 24) * 100,
                     color: backgroundColorThumb[3],
                     label: " Hobby ",
                   },
@@ -246,10 +294,16 @@ export default function Landing() {
           </div>
 
           <div className={styles.formBtnContainer}>
-            <Button color="red" mr="md" radius="xl" size="md">
+            <Button
+              onClick={resetHours}
+              color="red"
+              mr="md"
+              radius="xl"
+              size="md"
+            >
               Reset
             </Button>
-            <BtnTooltip label="Use 24h to publish" radius="lg" withArrow>
+            <BtnTooltip label="Use 24h to publish" radius="lg" withArrow mb="xl">
               <Button
                 color="dark"
                 radius="xl"
@@ -259,13 +313,25 @@ export default function Landing() {
                 Publish
               </Button>
             </BtnTooltip>
-
           </div>
         </section>
 
         <section className={styles.chart_container}>
           <div className={styles.chart_circle}>
             <Doughnut data={data2} />
+          </div>
+          <div className={styles.dash_preview}>
+            <div className={styles.dash_pic}>
+              <h4>Place Holder</h4>
+            </div>
+            <div className={styles.dash_desc}>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
+                aliquid excepturi placeat in culpa impedit qui accusamus nihil
+                nostrum voluptates numquam nobis quasi omnis, aspernatur ad
+                quibusdam mollitia rerum recusandae?
+              </p>
+            </div>
           </div>
         </section>
       </SimpleGrid>
