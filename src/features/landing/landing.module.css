@@ -65,7 +65,9 @@
 
 .dash_desc {
   max-width: 56ch;
+  text-align: start;
 }
+
 
 
 @media only screen and (max-width: 500px) {

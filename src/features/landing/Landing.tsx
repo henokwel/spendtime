@@ -12,10 +12,15 @@ import {
 import styles from "./landing.module.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import { useAppDispatch } from "../../app/hooks";
+import { userSubmit } from "../../app/auth";
 
 ChartJS.register(ArcElement, Tooltip);
 
 export default function Landing() {
+  const dispatch = useAppDispatch();
+
+  // User Data
   const [work, setWork] = useState(0);
   const [workEndValue, setWorkEndValue] = useState(0);
 
@@ -63,10 +68,15 @@ export default function Landing() {
     ],
   };
 
+  const handleUserSubmit = () => {
+    // check user have used 24h
+
+    dispatch(userSubmit());
+  };
+
   useEffect(() => {
     // Check usedTime and disable after 24h
     // Check change and enable if less than 24h
-
     let usedTime = work + sleep + commute + health + family + hobby;
 
     if (usedTime === 24) {
@@ -246,7 +256,7 @@ export default function Landing() {
                 onChangeEnd={setHobbyEndValue}
               />
 
-              <Divider my="sm"  variant="dashed" color="dark" mt="xl"/>
+              <Divider my="sm" variant="dashed" color="dark" mt="xl" />
 
               {timeLeft === 24 ? (
                 <h3>Yeah! Share your Day Routine with others.</h3>
@@ -303,8 +313,14 @@ export default function Landing() {
             >
               Reset
             </Button>
-            <BtnTooltip label="Use 24h to publish" radius="lg" withArrow mb="xl">
+            <BtnTooltip
+              label="Use 24h to publish"
+              radius="lg"
+              withArrow
+              mb="xl"
+            >
               <Button
+                onClick={handleUserSubmit}
                 color="dark"
                 radius="xl"
                 size="md"
