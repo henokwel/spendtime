@@ -8,6 +8,7 @@ import {
   Text,
   Progress,
   Divider,
+  RingProgress,
 } from "@mantine/core";
 import styles from "./landing.module.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -334,7 +335,48 @@ export default function Landing() {
 
         <section className={styles.chart_container}>
           <div className={styles.chart_circle}>
-            <Doughnut data={data2} />
+            {/* <Doughnut data={data2} /> */}
+            <RingProgress
+              size={450}
+              thickness={80}
+              sections={[
+                {
+                  value: (sleep / 24) * 100,
+                  color: backgroundColorThumb[1],
+                },
+                {
+                  value: (work / 24) * 100,
+                  color: backgroundColorThumb[0],
+                },
+                {
+                  value: (commute / 24) * 100,
+                  color: backgroundColorThumb[2],
+                },
+                {
+                  value: (family / 24) * 100,
+                  color: backgroundColorThumb[4],
+                },
+                {
+                  value: (health / 24) * 100,
+                  color: backgroundColorThumb[5],
+                },
+                {
+                  value: (hobby / 24) * 100,
+                  color: backgroundColorThumb[3],
+                },
+              ]}
+              label={
+                <Text
+                  color="blue"
+                  weight={800}
+                  align="center"
+                  component="h1"
+                  size="xl"
+                >
+                  {`${timeLeft}h`}
+                </Text>
+              }
+            />
           </div>
           <div className={styles.dash_preview}>
             <div className={styles.dash_pic}>
