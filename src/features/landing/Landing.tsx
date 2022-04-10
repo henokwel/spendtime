@@ -15,6 +15,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { useAppDispatch } from "../../app/hooks";
 import { userSubmit } from "../../app/auth";
+import faker from "@faker-js/faker";
 
 ChartJS.register(ArcElement, Tooltip);
 
@@ -69,8 +70,76 @@ export default function Landing() {
     ],
   };
 
+  // => Working with datasets
+  {
+    /* <Line
+
+  datasetIdKey='id'
+  data={{
+    labels: ['Jun', 'Jul', 'Aug'],
+    datasets: [
+      {
+        id: 1,
+        label: '',
+        data: [5, 6, 7],
+      },
+      {
+        id: 2,
+        label: '',
+        data: [3, 2, 1],
+      },
+    ],
+  }}
+/> */
+  }
   const handleUserSubmit = () => {
     // check user have used 24h
+    if (timeLeft !== 24) return;
+
+    const randomName = [1, 2, 3, 4, 5, 6, 7].map((item) =>
+      faker.name.firstName()
+    );
+
+    const labels = ["You", ...randomName];
+
+    const userDataSet = [
+      {
+        label: "Sleep",
+        value: sleep,
+      },
+      {
+        label: "Work",
+        value: work,
+      },
+      {
+        label: "Commute",
+        value: commute,
+      },
+      {
+        label: "Hobby",
+        value: hobby,
+      },
+      {
+        label: "Family",
+        value: family,
+      },
+      {
+        label: "Health",
+        value: health,
+      },
+    ];
+
+    const userData = {
+      labels,
+      datasets: [
+        {
+          label: "Sleep",
+          // data:labels.map(item => )
+        },
+      ],
+    };
+
+    console.log(userData);
 
     dispatch(userSubmit());
   };

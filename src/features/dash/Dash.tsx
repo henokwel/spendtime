@@ -46,33 +46,39 @@ export const data = {
   datasets: [
     {
       label: "Sleep",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      data: labels.map(() =>  {
+
+        const res =  faker.datatype.number({ min: 0, max: 10 })
+        console.log("Res", res);
+        return res
+        
+      }),
       backgroundColor: "rgb(255, 99, 132)",
     },
     {
       label: "Work",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 20 })),
       backgroundColor: "rgb(75, 192, 192)",
     },
     {
-      label: "Dataset 3",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      label: "Commute",
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 30 })),
       backgroundColor: "rgb(53, 162, 235)",
     },
     {
-      label: "Sleep",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      label: "Hobby",
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 40 })),
       backgroundColor: "rgb(255, 99, 132)",
     },
     {
-      label: "Work",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      label: "Family",
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 50 })),
       backgroundColor: "rgb(75, 192, 192)",
     },
     {
-      label: "Dataset 3",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: "rgb(53, 162, 235)",
+      label: "Health",
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 60 })),
+      backgroundColor: "rgba(255, 159, 64)",
     },
   ],
 };
