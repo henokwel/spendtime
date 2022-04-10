@@ -3,6 +3,7 @@ import { RootState } from "./store";
 
 export interface AuthState {
   isSubmited: boolean;
+  
 }
 
 const initialState: AuthState = {

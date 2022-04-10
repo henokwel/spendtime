@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@faker-js/faker": "^6.1.2",
     "@mantine/core": "^4.1.1",
     "@mantine/form": "^4.1.1",
     "@mantine/hooks": "^4.1.1",
@@ -16,6 +17,7 @@
     "@types/react-dom": "^16.9.14",
     "@types/react-redux": "^7.1.23",
     "chart.js": "^3.7.1",
+    "faker": "^6.6.6",
     "react": "^18.0.0",
     "react-chartjs-2": "^4.0.1",
     "react-dom": "^18.0.0",
