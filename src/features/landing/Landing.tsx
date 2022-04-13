@@ -70,6 +70,18 @@ export default function Landing() {
     ],
   };
 
+
+  const testData = {
+    labels: ['Jun', 'Jul', 'Aug'],
+    datasets: [
+      {
+        id: 1,
+        label: '',
+        data: [5, 6, 7],
+      },
+    ]
+  }
+
   // => Working with datasets
   {
     /* <Line
