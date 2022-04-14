@@ -15,6 +15,9 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { useAppDispatch } from "../../app/hooks";
 import { userSubmit } from "../../app/auth";
+
+import { Bed } from "tabler-icons-react";
+
 import faker from "@faker-js/faker";
 
 ChartJS.register(ArcElement, Tooltip);
@@ -70,17 +73,16 @@ export default function Landing() {
     ],
   };
 
-
   const testData = {
-    labels: ['Jun', 'Jul', 'Aug'],
+    labels: ["Jun", "Jul", "Aug"],
     datasets: [
       {
         id: 1,
-        label: '',
+        label: "",
         data: [5, 6, 7],
       },
-    ]
-  }
+    ],
+  };
 
   // => Working with datasets
   {
@@ -198,6 +200,11 @@ export default function Landing() {
     setHobby(0);
     setHobbyEndValue(0);
   };
+
+  const stylesZZ = {
+    thumb: { borderWidth: 2, height: 32, width: 32, padding: 3 },
+  };
+
   return (
     <Container fluid>
       <SimpleGrid
@@ -237,8 +244,12 @@ export default function Landing() {
                 Sleep
               </Text>
               <Slider
-                styles={{ thumb: { backgroundColor: backgroundColorThumb[1] } }}
-                color="dark"
+                thumbChildren={
+                  <Bed size={20} strokeWidth={2} color={"#19194d"} />
+                }
+                styles={stylesZZ}
+                // styles={{ thumb: { backgroundColor: backgroundColorThumb[1] } }}
+                color="red"
                 size="lg"
                 radius="xs"
                 mb="sm"
