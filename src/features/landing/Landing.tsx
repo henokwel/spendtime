@@ -105,6 +105,8 @@ export default function Landing() {
     ],
   }}
 /> */
+
+
   }
   const handleUserSubmit = () => {
     // check user have used 24h
@@ -116,9 +118,11 @@ export default function Landing() {
 
     const labels = ["You", ...randomName];
 
+
+    
     const userDataSet = [
       {
-        label: "Sleep",
+        label: "Sleep 123öö",
         value: sleep,
       },
       {
